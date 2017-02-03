@@ -47,7 +47,10 @@ func (h *Handle) Work() WorkStatus {
 	} else {
 		r = (*C.dtrace_consume_rec_f)(C.dumpChewrec)
 	}
-	return WorkStatus(C.dtrace_work(h.handle, nil, p, r, unsafe.Pointer(h)))
+
+	// i := C.dtrace_work(h.handle, nil, p, r, unsafe.Pointer(h.handle))
+	// log.Print("I:", i)
+	return WorkStatus(C.dtrace_work(h.handle, nil, p, r, unsafe.Pointer(h.handle)))
 }
 
 type WorkStatus int
